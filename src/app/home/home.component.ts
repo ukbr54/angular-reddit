@@ -10,16 +10,12 @@ import { faArrowUp,faArrowDown,faComments } from '@fortawesome/free-solid-svg-ic
 })
 export class HomeComponent implements OnInit {
 
-  faArrowUp = faArrowUp;
-  faArrowDown = faArrowDown;
-  faComments = faComments;
-  
-  posts: Array<PostModel> = [];
+  posts$: Array<PostModel> = [];
 
-  constructor(private postService: PostService) { 
+  constructor(private postService: PostService) {
     this.postService.getAllPosts().subscribe(post => {
-      this.posts = post;
-    })
+      this.posts$ = post;
+    });
   }
 
   ngOnInit(): void {
