@@ -18,7 +18,7 @@ export class AuthService {
   refreshTokenPayload = {
     refreshToken: this.getRefreshToken(),
     username: this.getUserName()
-  }
+  };
 
   constructor(private httpClient: HttpClient,private localStorage: LocalStorageService) { }
 
@@ -58,12 +58,13 @@ export class AuthService {
   }
 
   logout(){
+    console.log(this.refreshTokenPayload);
     this.httpClient.post('http://localhost:8080/api/auth/logout',this.refreshTokenPayload,
-      { responseType: 'text' }).subscribe(data => {
+          { responseType: 'text' }).subscribe(data => {
         console.log(data);
       },error=>{
         throwError(error);
-      })
+      });
 
       this.localStorage.clear('authenticationToken');
       this.localStorage.clear('username');
@@ -76,6 +77,7 @@ export class AuthService {
   }
 
   getRefreshToken(){
+    console.log("Refresh Token: "+this.localStorage.retrieve('refreshToken'));
     return this.localStorage.retrieve('refreshToken');
   }
 
